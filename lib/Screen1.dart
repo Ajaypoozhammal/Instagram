@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Screen2.dart';
+import 'Screen3.dart';
+
 class Screen1 extends StatefulWidget {
   const Screen1({super.key});
 
@@ -57,52 +60,58 @@ class _Screen1State extends State<Screen1> {
                     SizedBox(
                       width: 20.w,
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          '3680',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 20.64.sp,
-                            fontWeight: FontWeight.w500,
+                    TextButton(
+                      onPressed: () {  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen2())); },
+                      child: Column(
+                        children: [
+                          Text(
+                            '3680',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 20.64.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Followers',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 17.24.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Followers',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 17.24.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       width: 20.w,
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          '280',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 20.64.sp,
-                            fontWeight: FontWeight.w500,
+                    TextButton(
+                      onPressed: () {  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen3())); },
+                      child: Column(
+                        children: [
+                          Text(
+                            '280',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 20.64.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Following',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 17.24.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
+                          Text(
+                            'Following',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 17.24.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -111,7 +120,7 @@ class _Screen1State extends State<Screen1> {
                 height: 5.h,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 310),
+                padding: const EdgeInsets.only(right: 250),
                 child: Text(
                   'Name',
                   textAlign: TextAlign.center,
@@ -122,7 +131,7 @@ class _Screen1State extends State<Screen1> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 300),
+                padding: const EdgeInsets.only(right: 250),
                 child: Text(
                   'Local business',
                   textAlign: TextAlign.center,
@@ -134,7 +143,7 @@ class _Screen1State extends State<Screen1> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 300),
+                padding: const EdgeInsets.only(right: 250),
                 child: Text(
                   'www.website.com',
                   textAlign: TextAlign.center,
@@ -352,7 +361,7 @@ class _Screen1State extends State<Screen1> {
                       return Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          height: 50.h,
+                          height: 30.h,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("asset/a.png"),
