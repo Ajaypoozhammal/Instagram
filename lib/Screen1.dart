@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,7 +17,7 @@ class Screen1 extends StatefulWidget {
 class _Screen1State extends State<Screen1> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -23,10 +25,10 @@ class _Screen1State extends State<Screen1> {
               TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.r)),
+                          borderRadius: BorderRadius.circular(70.r)),
                       prefixIcon: Icon(Icons.search))),
               Padding(
-                padding: const EdgeInsets.only(left: 30, top: 20),
+                padding: const EdgeInsets.only(left: 10, top: 20),
                 child: Row(
                   children: [
                     CircleAvatar(
@@ -42,7 +44,7 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.black,
-                            fontSize: 20.64.sp,
+                            fontSize: 14.64.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -51,7 +53,7 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.black,
-                            fontSize: 17.24.sp,
+                            fontSize: 12.24.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         )
@@ -61,7 +63,10 @@ class _Screen1State extends State<Screen1> {
                       width: 20.w,
                     ),
                     TextButton(
-                      onPressed: () {  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen2())); },
+                      onPressed: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => Screen2()));
+                      },
                       child: Column(
                         children: [
                           Text(
@@ -69,7 +74,7 @@ class _Screen1State extends State<Screen1> {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: Colors.black,
-                              fontSize: 20.64.sp,
+                              fontSize: 14.64.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -78,7 +83,7 @@ class _Screen1State extends State<Screen1> {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: Colors.black,
-                              fontSize: 17.24.sp,
+                              fontSize: 12.24.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           )
@@ -86,10 +91,13 @@ class _Screen1State extends State<Screen1> {
                       ),
                     ),
                     SizedBox(
-                      width: 20.w,
+                      width: 10.w,
                     ),
                     TextButton(
-                      onPressed: () {  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen3())); },
+                      onPressed: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => Screen3()));
+                      },
                       child: Column(
                         children: [
                           Text(
@@ -97,7 +105,7 @@ class _Screen1State extends State<Screen1> {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: Colors.black,
-                              fontSize: 20.64.sp,
+                              fontSize: 14.64.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -106,7 +114,7 @@ class _Screen1State extends State<Screen1> {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: Colors.black,
-                              fontSize: 17.24.sp,
+                              fontSize: 12.24.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           )
@@ -120,42 +128,42 @@ class _Screen1State extends State<Screen1> {
                 height: 5.h,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 250),
+                padding: const EdgeInsets.only(right: 260),
                 child: Text(
                   'Name',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                    fontSize: 15.64,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 11.64,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 250),
+                padding: const EdgeInsets.only(right: 230),
                 child: Text(
                   'Local business',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: Color(0xFF8E8E8E),
-                    fontSize: 16.05.sp,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 10.05.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 250),
+                padding: const EdgeInsets.only(right: 230),
                 child: Text(
                   'www.website.com',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                    color: Color(0xFFD4E0ED),
-                    fontSize: 12.20.sp,
-                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                    fontSize: 10.20.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 10, top: 20),
+                padding: const EdgeInsets.only(left: 10, top: 20),
                 child: Row(
                   children: [
                     Container(
@@ -173,7 +181,7 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.white,
-                            fontSize: 16.05,
+                            fontSize: 12.05,
                             fontWeight: FontWeight.w500,
                             height: 0,
                           ),
@@ -198,7 +206,7 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.white,
-                            fontSize: 16.05,
+                            fontSize: 12.05,
                             fontWeight: FontWeight.w500,
                             height: 0,
                           ),
@@ -223,7 +231,7 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.white,
-                            fontSize: 16.05,
+                            fontSize: 12.05,
                             fontWeight: FontWeight.w500,
                             height: 0,
                           ),
@@ -247,7 +255,7 @@ class _Screen1State extends State<Screen1> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 30, top: 30),
+                padding: const EdgeInsets.only(left: 10, top: 30),
                 child: Row(
                   children: [
                     Column(
@@ -263,15 +271,15 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.black,
-                            fontSize: 14.91,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 9.91,
+                            fontWeight: FontWeight.w600,
                             height: 0,
                           ),
                         )
                       ],
                     ),
                     SizedBox(
-                      width: 20.w,
+                      width: 30.w,
                     ),
                     Column(
                       children: [
@@ -286,15 +294,15 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.black,
-                            fontSize: 14.91,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 9.91,
+                            fontWeight: FontWeight.w600,
                             height: 0,
                           ),
                         )
                       ],
                     ),
                     SizedBox(
-                      width: 20.w,
+                      width: 30.w,
                     ),
                     Column(
                       children: [
@@ -309,8 +317,8 @@ class _Screen1State extends State<Screen1> {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.black,
-                            fontSize: 14.91,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 9.91,
+                            fontWeight: FontWeight.w600,
                             height: 0,
                           ),
                         )
@@ -319,64 +327,88 @@ class _Screen1State extends State<Screen1> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 60.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Divider(
-                  thickness: 1,
-                  color: Colors.black,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: Row(
+              DefaultTabController(
+                length: 2,
+                child: Column(
                   children: [
-                    Icon(
-                      Icons.dashboard,
-                      size: 60,
+                    Container(
+                      height:50,
+                      child: TabBar(
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        dividerHeight: 0,
+                        indicatorColor: Colors.black,
+                        labelColor: Colors.white,
+                        tabs: [
+                          Tab(
+                            icon: Icon(
+                              Icons.dashboard,
+                              size: 30,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Tab(
+                            icon: Icon(
+                              Icons.account_box_outlined,
+                              color: Colors.black,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      width: 150.w,
-                    ),
-                    Icon(
-                      Icons.account_box_outlined,
-                      size: 60,
-                    ),
+                      height: 500,
+                      width: 320,
+                      child: TabBarView(
+                        children: [
+                          SizedBox(
+                            height: 500.h,
+                            width: 300.w,
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 5.0,
+                              mainAxisSpacing: 5.0,
+                              shrinkWrap: true,
+                              children: List.generate(
+                                10,
+                                (index) {
+                                  return Container(
+                                    height: 30.h,
+                                    color: Colors.grey,
+                                    child: Image.asset("asset/a.png"),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.red,
+                            child: SizedBox(
+                              height: 500.h,
+                              width: 300.w,
+                              child: GridView.count(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 5.0,
+                                mainAxisSpacing: 5.0,
+                                shrinkWrap: true,
+                                children: List.generate(
+                                  10,
+                                      (index) {
+                                    return Container(
+                                      height: 30.h,
+                                      color: Colors.grey,
+                                      child: Image.asset("asset/a.png"),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
-              SizedBox(
-                height: 500.h,
-                width: double.infinity,
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10.0,
-                  mainAxisSpacing: 10.0,
-                  shrinkWrap: true,
-                  children: List.generate(
-                    10,
-                    (index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("asset/a.png"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              )
             ],
           ),
         ),

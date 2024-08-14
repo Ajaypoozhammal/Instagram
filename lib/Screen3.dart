@@ -14,81 +14,83 @@ class Screen3 extends StatefulWidget {
 class _Screen3State extends State<Screen3> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen1()));
-                    },
-                    child: Icon(
-                      Icons.arrow_back_sharp,
-                      size: 30,
-                      color: Colors.black,
-                    )),
-                SizedBox(
-                  width: 40.w,
-                ),
-              ],
-            ),
-
-            SizedBox(height: 30.h,),
-            SizedBox(
-              height: 700,
-              child: ListView.builder(
-                itemCount: 20,
-                itemBuilder: (context, position) {
-                  return Container(
-                    height: 50.h,
-                    color: Colors.white,
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 40.r,
-                          backgroundImage: AssetImage("asset/a.png"),
-                        ),SizedBox(width: 10.w),
-                        Text(
-                          'Name',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 13.24.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),SizedBox(width: 150.w,),
-                        Container(
-                          width: 90.37.w,
-                          height: 33.25.h,
-                          decoration: ShapeDecoration(
-                            color: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.73),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen1()));
+                      },
+                      child: Icon(
+                        Icons.arrow_back_sharp,
+                        size: 30,
+                        color: Colors.black,
+                      )),
+                  SizedBox(
+                    width: 40.w,
+                  ),
+                ],
+              ),
+          
+              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 700,
+                child: ListView.separated(
+                  itemCount: 20,
+                  itemBuilder: (context, position) {
+                    return Container(
+                      height: 50.h,
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 40.r,
+                            backgroundImage: AssetImage("asset/a.png"),
+                          ),SizedBox(width: 10.w),
+                          Text(
+                            'Name',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 13.24.sp,
+                              fontWeight: FontWeight.w400,
                             ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Following',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 12.05,
-                                fontWeight: FontWeight.w500,
-                                height: 0,
+                          ),SizedBox(width: 150.w,),
+                          Container(
+                            width: 90.37.w,
+                            height: 33.25.h,
+                            decoration: ShapeDecoration(
+                              color: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.73),
                               ),
                             ),
-                          ),
-                        ),SizedBox(width: 20.w,),
-                        Icon(Icons.more_vert_rounded,color: Colors.black,size: 30,)
-                      ],
-                    ),
-                  );
-                },
+                            child: Center(
+                              child: Text(
+                                'Following',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontSize: 10.05,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                          ),SizedBox(width: 10.w,),
+                          Icon(Icons.more_vert_rounded,color: Colors.black,size: 30,)
+                        ],
+                      ),
+                    );
+                  }, separatorBuilder: (BuildContext context, int index) { return SizedBox(height: 10,); },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

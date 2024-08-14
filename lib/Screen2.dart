@@ -12,7 +12,7 @@ class Screen2 extends StatefulWidget {
 class _Screen2State extends State<Screen2> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -34,13 +34,13 @@ class _Screen2State extends State<Screen2> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 270, top: 30),
+                padding: const EdgeInsets.only(right: 250,),
                 child: Text(
                   'All followers',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: Colors.black,
-                    fontSize: 15.24.sp,
+                    fontSize: 13.24.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -48,7 +48,7 @@ class _Screen2State extends State<Screen2> {
               SizedBox(height: 30.h,),
               SizedBox(
                 height: 700,
-                child: ListView.builder(
+                child: ListView.separated(
                   itemCount: 20,
                   itemBuilder: (context, position) {
                     return Container(
@@ -70,7 +70,7 @@ class _Screen2State extends State<Screen2> {
                             ),
                           ),SizedBox(width: 150.w,),
                           Container(
-                            width: 60.37.w,
+                            width: 80.37.w,
                             height: 33.25.h,
                             decoration: ShapeDecoration(
                               color: Colors.grey,
@@ -84,7 +84,7 @@ class _Screen2State extends State<Screen2> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
                                   color: Colors.white,
-                                  fontSize: 12.05,
+                                  fontSize: 10.05,
                                   fontWeight: FontWeight.w500,
                                   height: 0,
                                 ),
@@ -95,7 +95,7 @@ class _Screen2State extends State<Screen2> {
                         ],
                       ),
                     );
-                  },
+                  }, separatorBuilder: (BuildContext context, int index) { return SizedBox(height: 10.h,); },
                 ),
               ),
             ],
