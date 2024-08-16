@@ -1,8 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+
+import 'Block/instagram_bloc.dart';
+
+import 'Repository/ModelClass/InstagramModel.dart';
 
 import 'Screen2.dart';
 import 'Screen3.dart';
@@ -15,9 +21,13 @@ class Screen1 extends StatefulWidget {
 }
 
 class _Screen1State extends State<Screen1> {
+  late InstagramModel data;
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -332,7 +342,7 @@ class _Screen1State extends State<Screen1> {
                 child: Column(
                   children: [
                     Container(
-                      height:50,
+                      height: 50,
                       child: TabBar(
                         indicatorSize: TabBarIndicatorSize.tab,
                         dividerHeight: 0,
@@ -363,21 +373,43 @@ class _Screen1State extends State<Screen1> {
                           SizedBox(
                             height: 500.h,
                             width: 300.w,
-                            child: GridView.count(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 5.0,
-                              mainAxisSpacing: 5.0,
-                              shrinkWrap: true,
-                              children: List.generate(
-                                10,
-                                (index) {
-                                  return Container(
-                                    height: 30.h,
-                                    color: Colors.grey,
-                                    child: Image.asset("asset/a.png"),
-                                  );
-                                },
-                              ),
+                            child: BlocBuilder<InstagramBloc, InstagramState>(
+                                builder: (context, state) {
+                                  if (state is InstagramBlocLoading)
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  if (state is InstagramBlocError) {
+                                    return Center(
+                                      child: Text("Error"),
+                                    );
+                                  }
+                                  if (state is InstagramBlocLoaded) {
+                                    data = BlocProvider
+                                        .of<InstagramBloc>(context)
+                                        .instagramModel;
+
+                                    return GridView.count(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 5.0,
+                                      mainAxisSpacing: 5.0,
+                                      shrinkWrap: true,
+                                      children: List.generate(
+                                        data.items!.length,
+                                            (index) {
+                                          return Container(
+                                            height: 30.h,
+                                            color: Colors.grey,
+                                            child: Image.asset("asset/a.png"),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                  else {
+                                    return SizedBox();
+                                  }
+                                }
                             ),
                           ),
                           Container(
@@ -385,21 +417,46 @@ class _Screen1State extends State<Screen1> {
                             child: SizedBox(
                               height: 500.h,
                               width: 300.w,
-                              child: GridView.count(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 5.0,
-                                mainAxisSpacing: 5.0,
-                                shrinkWrap: true,
-                                children: List.generate(
-                                  10,
-                                      (index) {
-                                    return Container(
-                                      height: 30.h,
-                                      color: Colors.grey,
-                                      child: Image.asset("asset/a.png"),
+                              child: BlocBuilder<InstagramBloc, InstagramState>(
+                                builder: (context, state) {
+                                  if (state is InstagramBlocLoading)
+                                    return Center(
+                                      child: CircularProgressIndicator(),
                                     );
-                                  },
-                                ),
+                                  if (state is InstagramBlocError) {
+                                    return Center(
+                                      child: Text("Error"),
+                                    );
+                                  }
+                                  if (state is InstagramBlocLoaded) {
+                                    data = BlocProvider
+                                        .of<InstagramBloc>(context)
+                                        .instagramModel;
+
+
+                                    return GridView.count(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 5.0,
+                                      mainAxisSpacing: 5.0,
+                                      shrinkWrap: true,
+                                      children: List.generate(
+                                        10,
+                                            (index) {
+                                          return Container(
+                                            height: 30.h,
+                                            color: Colors.grey,
+                                            child: Image.asset("asset/a.png"),
+                                          );
+                                        },
+                                      ),
+
+                                    );
+
+                                  }
+                                  else {
+                                  return SizedBox();
+                                  }
+                                },
                               ),
                             ),
                           )
