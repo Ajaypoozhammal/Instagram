@@ -22,6 +22,12 @@ class Screen1 extends StatefulWidget {
 
 class _Screen1State extends State<Screen1> {
   late InstagramModel data;
+  @override
+  void initState() {
+    BlocProvider.of<InstagramBloc>(context).add(FetchInstagram());
+    // TODO: implement initState
+    super.initState();
+  }
 
 
   @override
@@ -30,7 +36,23 @@ class _Screen1State extends State<Screen1> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
+          child: BlocBuilder<InstagramBloc, InstagramState>(
+  builder: (context, state) {
+      if (state is InstagramBlocLoading)
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      if (state is InstagramBlocError) {
+        return Center(
+          child: Text("Error"),
+        );
+      }
+      if (state is InstagramBlocLoaded) {
+        data = BlocProvider
+            .of<InstagramBloc>(context)
+            .instagramModel;
+
+    return Column(
             children: [
               TextField(
                   decoration: InputDecoration(
@@ -41,16 +63,20 @@ class _Screen1State extends State<Screen1> {
                 padding: const EdgeInsets.only(left: 10, top: 20),
                 child: Row(
                   children: [
+
                     CircleAvatar(
                         radius: 40.r,
-                        backgroundImage: AssetImage("asset/a.png")),
+                          backgroundImage: NetworkImage(
+                          data.user!.profilePicUrl.toString()
+                          ),
+                 ),
                     SizedBox(
                       width: 20.w,
                     ),
                     Column(
                       children: [
                         Text(
-                          '129',
+                          data.user!.mediaCount.toString(),
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: Colors.black,
@@ -80,7 +106,7 @@ class _Screen1State extends State<Screen1> {
                       child: Column(
                         children: [
                           Text(
-                            '3680',
+                            data.user!.followerCount.toString(),
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: Colors.black,
@@ -111,7 +137,7 @@ class _Screen1State extends State<Screen1> {
                       child: Column(
                         children: [
                           Text(
-                            '280',
+                            data.user!.followingCount.toString(),
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: Colors.black,
@@ -140,7 +166,7 @@ class _Screen1State extends State<Screen1> {
               Padding(
                 padding: const EdgeInsets.only(right: 260),
                 child: Text(
-                  'Name',
+                  data.user!.fullName.toString(),
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     fontSize: 11.64,
@@ -389,21 +415,23 @@ class _Screen1State extends State<Screen1> {
                                         .of<InstagramBloc>(context)
                                         .instagramModel;
 
+
+
                                     return GridView.count(
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 5.0,
                                       mainAxisSpacing: 5.0,
                                       shrinkWrap: true,
-                                      children: List.generate(
-                                        data.items!.length,
-                                            (index) {
-                                          return Container(
-                                            height: 30.h,
-                                            color: Colors.grey,
-                                            child: Image.asset("asset/a.png"),
-                                          );
-                                        },
-                                      ),
+                                      // children: List.generate(
+                                      //   data.items!.length,
+                                      //       (index) {
+                                      //     return Container(
+                                      //       height: 30.h,
+                                      //       color: Colors.grey,
+                                      //       child: Image.asset("asset/a.png"),
+                                      //     );
+                                      //   },
+                                      // ),
                                     );
                                   }
                                   else {
@@ -467,7 +495,15 @@ class _Screen1State extends State<Screen1> {
                 ),
               ),
             ],
-          ),
+      
+          );
+    
+  }
+    else {
+    return SizedBox();
+    }
+  }
+),
         ),
       ),
     );

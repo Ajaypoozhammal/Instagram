@@ -12,7 +12,8 @@ class Screen2 extends StatefulWidget {
 class _Screen2State extends State<Screen2> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -34,7 +35,9 @@ class _Screen2State extends State<Screen2> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 250,),
+                padding: const EdgeInsets.only(
+                  right: 250,
+                ),
                 child: Text(
                   'All followers',
                   textAlign: TextAlign.center,
@@ -45,7 +48,9 @@ class _Screen2State extends State<Screen2> {
                   ),
                 ),
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               SizedBox(
                 height: 700,
                 child: ListView.separated(
@@ -59,7 +64,8 @@ class _Screen2State extends State<Screen2> {
                           CircleAvatar(
                             radius: 40.r,
                             backgroundImage: AssetImage("asset/a.png"),
-                          ),SizedBox(width: 10.w),
+                          ),
+                          SizedBox(width: 10.w),
                           Text(
                             'Name',
                             textAlign: TextAlign.center,
@@ -68,7 +74,10 @@ class _Screen2State extends State<Screen2> {
                               fontSize: 13.24.sp,
                               fontWeight: FontWeight.w400,
                             ),
-                          ),SizedBox(width: 150.w,),
+                          ),
+                          SizedBox(
+                            width: 150.w,
+                          ),
                           Container(
                             width: 80.37.w,
                             height: 33.25.h,
@@ -90,12 +99,24 @@ class _Screen2State extends State<Screen2> {
                                 ),
                               ),
                             ),
-                          ),SizedBox(width: 20.w,),
-                          Icon(Icons.more_vert_rounded,color: Colors.black,size: 30,)
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Icon(
+                            Icons.more_vert_rounded,
+                            color: Colors.black,
+                            size: 30,
+                          )
                         ],
                       ),
                     );
-                  }, separatorBuilder: (BuildContext context, int index) { return SizedBox(height: 10.h,); },
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 10.h,
+                    );
+                  },
                 ),
               ),
             ],

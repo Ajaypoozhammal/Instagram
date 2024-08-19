@@ -10,10 +10,7 @@ class InstagramBloc extends Bloc<InstagramEvent, InstagramState> {
   late InstagramModel instagramModel;
   InstagramApi instagramApi=InstagramApi();
   InstagramBloc() : super(InstagramInitial()) {
-    on<InstagramEvent>((InstagramEvent, Instagramemit) {
 
-
-      InstagramBloc() ;(InstagramInitial()); {
       on<FetchInstagram>((event, emit)async {
 
       emit(InstagramBlocLoading());
@@ -24,9 +21,9 @@ class InstagramBloc extends Bloc<InstagramEvent, InstagramState> {
       catch(e){
       emit(InstagramBlocError());
       }
-
-      });
       }
-    });
+      );
+      }
+
   }
-}
+
