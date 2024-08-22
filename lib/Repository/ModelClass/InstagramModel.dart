@@ -555,6 +555,8 @@ class User {
   bool? hasEverSelectedTopics;
   bool? isOregonCustomGenderConsented;
 
+  get hd_profile_pic_url_info => null;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['primary_profile_link_type'] = primaryProfileLinkType;

@@ -67,7 +67,7 @@ class _Screen1State extends State<Screen1> {
                     CircleAvatar(
                         radius: 40.r,
                           backgroundImage: NetworkImage(
-                          data.user!.profilePicUrl.toString()
+                          data.user!.hd_profile_pic_url_info.toString()
                           ),
                  ),
                     SizedBox(
