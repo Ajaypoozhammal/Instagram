@@ -18,9 +18,10 @@ class HighlightBloc extends Bloc<HighlightEvent, HighlightState> {
         emit(HighlightBlocLoaded());
       }
       catch(e){
+        print(e.toString());
         emit(HighlightBlocError());
       }
-      // TODO: implement event handler
+
     });
   }
 }

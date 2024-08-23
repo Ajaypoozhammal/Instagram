@@ -52,8 +52,8 @@ class ApiClient {
         response = await get(
           Uri.parse(url),
           headers: {
-            'x-rapidapi-host':'instagram-scraper-2022.p.rapidapi.com',
-            'x-rapidapi-key':'0c1f80bf9cmsh16bb2ef91e0ae62p1162a9jsnf3641b1bfab0',
+            'x-rapidapi-host':'instagram-scraper-api2.p.rapidapi.com',
+            'x-rapidapi-key':'672d77a6c9mshef9d3d4ef5161afp1f2101jsn6e1c82243c0e',
 
 
             'Accept': 'application/json',

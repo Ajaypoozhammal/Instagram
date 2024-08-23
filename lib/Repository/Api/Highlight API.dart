@@ -17,7 +17,7 @@ class Highlightapi {
 
 
   Future<HighlightModel> getInstagram() async {
-    String trendingpath = 'https://instagram-scraper-2022.p.rapidapi.com/ig/highlights_tray/';
+    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/highlights?username_or_id_or_url=_ajay._.p';
     var body = {
 
     };

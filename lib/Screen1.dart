@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:instagram/Block/highlight_bloc.dart';
+import 'package:instagram/Repository/ModelClass/HighlightModel.dart';
 
 import 'Block/instagram_bloc.dart';
 
@@ -22,13 +23,17 @@ class Screen1 extends StatefulWidget {
 
 class _Screen1State extends State<Screen1> {
   late InstagramModel data;
+  late HighlightModel data1;
+
   @override
   void initState() {
+    BlocProvider.of<HighlightBloc>(context).add(FetchHighlight());
     BlocProvider.of<InstagramBloc>(context).add(FetchInstagram());
+
+
     // TODO: implement initState
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,370 +42,339 @@ class _Screen1State extends State<Screen1> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: BlocBuilder<InstagramBloc, InstagramState>(
-  builder: (context, state) {
-      if (state is InstagramBlocLoading)
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      if (state is InstagramBlocError) {
-        return Center(
-          child: Text("Error"),
-        );
-      }
-      if (state is InstagramBlocLoaded) {
-        data = BlocProvider
-            .of<InstagramBloc>(context)
-            .instagramModel;
+              builder: (context, state) {
+            if (state is InstagramBlocLoading)
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            if (state is InstagramBlocError) {
+              return Center(
+                child: Text("Error"),
+              );
+            }
+            if (state is InstagramBlocLoaded) {
+              data = BlocProvider.of<InstagramBloc>(context).instagramModel;
 
-    return Column(
-            children: [
-              TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(70.r)),
-                      prefixIcon: Icon(Icons.search))),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 20),
-                child: Row(
-                  children: [
-
-                    CircleAvatar(
-                        radius: 40.r,
+              return Column(
+                children: [
+                  TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(70.r)),
+                          prefixIcon: Icon(Icons.search))),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 20),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 40.r,
                           backgroundImage: NetworkImage(
-                          data.user!.hd_profile_pic_url_info.toString()
-                          ),
-                 ),
-                    SizedBox(
-                      width: 20.w,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          data.user!.mediaCount.toString(),
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 14.64.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
+                            data.data!.profilePicUrlHd
+                                .toString(),)
                         ),
-                        Text(
-                          'Posts',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 12.24.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 20.w,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) => Screen2()));
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            data.user!.followerCount.toString(),
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 14.64.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'Followers',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 12.24.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) => Screen3()));
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            data.user!.followingCount.toString(),
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 14.64.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'Following',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 12.24.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 260),
-                child: Text(
-                  data.user!.fullName.toString(),
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    fontSize: 11.64,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 230),
-                child: Text(
-                  'Local business',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    color: Color(0xFF8E8E8E),
-                    fontSize: 10.05.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 230),
-                child: Text(
-                  'www.website.com',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 10.20.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 20),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 112.37.w,
-                      height: 33.25.h,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFF4192EF),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.73),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Follow',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 12.05,
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Container(
-                      width: 112.37.w,
-                      height: 33.25.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.73),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Message',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 12.05,
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Container(
-                      width: 112.37.w,
-                      height: 33.25.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.73),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Email',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 12.05,
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Container(
-                      width: 30.w,
-                      height: 30.25.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.73),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 30),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        CircleAvatar(
-                            radius: 40.r,
-                            backgroundImage: AssetImage("asset/a.png")),
                         SizedBox(
-                          height: 20.h,
+                          width: 20.w,
                         ),
-                        Text(
-                          'Highlight',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 9.91,
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 30.w,
-                    ),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                            radius: 40.r,
-                            backgroundImage: AssetImage("asset/a.png")),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Highlight',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 9.91,
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 30.w,
-                    ),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                            radius: 40.r,
-                            backgroundImage: AssetImage("asset/a.png")),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Highlight',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: Colors.black,
-                            fontSize: 9.91,
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    Container(
-                      height: 50,
-                      child: TabBar(
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        dividerHeight: 0,
-                        indicatorColor: Colors.black,
-                        labelColor: Colors.white,
-                        tabs: [
-                          Tab(
-                            icon: Icon(
-                              Icons.dashboard,
-                              size: 30,
-                              color: Colors.black,
+                        Column(
+                          children: [
+                            Text(
+                              data.data!.mediaCount.toString(),
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 14.64.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
+                            Text(
+                              'Posts',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 12.24.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => Screen2()));
+                          },
+                          child: Column(
+                            children: [
+                              Text(
+                                data.data!.followerCount.toString(),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  color: Colors.black,
+                                  fontSize: 14.64.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                'Followers',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  color: Colors.black,
+                                  fontSize: 12.24.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
                           ),
-                          Tab(
-                            icon: Icon(
-                              Icons.account_box_outlined,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => Screen3()));
+                          },
+                          child: Column(
+                            children: [
+                              Text(
+                                data.data!.followingCount.toString(),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  color: Colors.black,
+                                  fontSize: 14.64.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                'Following',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  color: Colors.black,
+                                  fontSize: 12.24.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 260),
+                    child: Text(
+                      data.data!.fullName.toString(),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        fontSize: 11.64,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(
-                      height: 500,
-                      width: 320,
-                      child: TabBarView(
-                        children: [
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 230),
+                    child: Text(
+                      'Local business',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: Color(0xFF8E8E8E),
+                        fontSize: 10.05.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 230),
+                    child: Text(
+                      'www.website.com',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: Colors.black,
+                        fontSize: 10.20.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 112.37.w,
+                          height: 33.25.h,
+                          decoration: ShapeDecoration(
+                            color: Color(0xFF4192EF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.73),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Follow',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontSize: 12.05,
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Container(
+                          width: 112.37.w,
+                          height: 33.25.h,
+                          decoration: ShapeDecoration(
+                            color: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.73),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Message',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontSize: 12.05,
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Container(
+                          width: 112.37.w,
+                          height: 33.25.h,
+                          decoration: ShapeDecoration(
+                            color: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.73),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Email',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontSize: 12.05,
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Container(
+                          width: 30.w,
+                          height: 30.25.h,
+                          decoration: ShapeDecoration(
+                            color: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.73),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30.h,),
+                  BlocBuilder<HighlightBloc, HighlightState>(
+                    builder: (context, state) {
+                      if (state is HighlightBlocLoading){
+                        print("loading");
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );}
+                      if (state is HighlightBlocError) {
+                        print("error");
+                        return Center(
+                          child: Text("Error"),
+                        );
+                      }
+                      if (state is HighlightBlocLoaded) {
+                        print("loaded");
+                        data1 = BlocProvider.of<HighlightBloc>(context)
+                            .highlightModel;
+
+                        return
                           SizedBox(
-                            height: 500.h,
-                            width: 300.w,
-                            child: BlocBuilder<InstagramBloc, InstagramState>(
-                                builder: (context, state) {
+                            width:double.infinity,height: 75.h,
+                            child: ListView.separated(
+                            itemCount:data1.data!.items!.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, position) {
+                              return CircleAvatar(radius: 30,
+                                backgroundImage:  NetworkImage(
+                                  data1.data!.items![position].coverMedia!.croppedImageVersion!.url.toString(),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, position) {
+                              return SizedBox(
+                                width: 1.w,
+                              );
+                            },
+                                                    ),
+                          );
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                  DefaultTabController(
+                    length: 2,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 50,
+                          child: TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            dividerHeight: 0,
+                            indicatorColor: Colors.black,
+                            labelColor: Colors.white,
+                            tabs: [
+                              Tab(
+                                icon: Icon(
+                                  Icons.dashboard,
+                                  size: 30,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Tab(
+                                icon: Icon(
+                                  Icons.account_box_outlined,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 500,
+                          width: 320,
+                          child: TabBarView(
+                            children: [
+                              SizedBox(
+                                height: 500.h,
+                                width: 300.w,
+                                child:
+                                    BlocBuilder<InstagramBloc, InstagramState>(
+                                        builder: (context, state) {
                                   if (state is InstagramBlocLoading)
                                     return Center(
                                       child: CircularProgressIndicator(),
@@ -411,11 +385,9 @@ class _Screen1State extends State<Screen1> {
                                     );
                                   }
                                   if (state is InstagramBlocLoaded) {
-                                    data = BlocProvider
-                                        .of<InstagramBloc>(context)
-                                        .instagramModel;
-
-
+                                    data =
+                                        BlocProvider.of<InstagramBloc>(context)
+                                            .instagramModel;
 
                                     return GridView.count(
                                       crossAxisCount: 2,
@@ -433,77 +405,69 @@ class _Screen1State extends State<Screen1> {
                                       //   },
                                       // ),
                                     );
-                                  }
-                                  else {
+                                  } else {
                                     return SizedBox();
                                   }
-                                }
-                            ),
-                          ),
-                          Container(
-                            color: Colors.red,
-                            child: SizedBox(
-                              height: 500.h,
-                              width: 300.w,
-                              child: BlocBuilder<InstagramBloc, InstagramState>(
-                                builder: (context, state) {
-                                  if (state is InstagramBlocLoading)
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  if (state is InstagramBlocError) {
-                                    return Center(
-                                      child: Text("Error"),
-                                    );
-                                  }
-                                  if (state is InstagramBlocLoaded) {
-                                    data = BlocProvider
-                                        .of<InstagramBloc>(context)
-                                        .instagramModel;
-
-
-                                    return GridView.count(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 5.0,
-                                      mainAxisSpacing: 5.0,
-                                      shrinkWrap: true,
-                                      children: List.generate(
-                                        10,
-                                            (index) {
-                                          return Container(
-                                            height: 30.h,
-                                            color: Colors.grey,
-                                            child: Image.asset("asset/a.png"),
-                                          );
-                                        },
-                                      ),
-
-                                    );
-
-                                  }
-                                  else {
-                                  return SizedBox();
-                                  }
-                                },
+                                }),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-      
-          );
-    
-  }
-    else {
-    return SizedBox();
-    }
-  }
-),
+                              Container(
+                                color: Colors.red,
+                                child: SizedBox(
+                                  height: 500.h,
+                                  width: 300.w,
+                                  child: BlocBuilder<InstagramBloc,
+                                      InstagramState>(
+                                    builder: (context, state) {
+                                      if (state is InstagramBlocLoading)
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      if (state is InstagramBlocError) {
+                                        return Center(
+                                          child: Text("Error"),
+                                        );
+                                      }
+                                      if (state is InstagramBlocLoaded) {
+                                        data = BlocProvider.of<InstagramBloc>(
+                                                context)
+                                            .instagramModel;
+
+                                        return GridView.count(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 5.0,
+                                          mainAxisSpacing: 5.0,
+                                          shrinkWrap: true,
+                                          children: List.generate(
+                                            10,
+                                            (index) {
+                                              return Container(
+                                                height: 30.h,
+                                                color: Colors.grey,
+                                                child:
+                                                    Image.asset("asset/a.png"),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        return SizedBox();
+                                      }
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return SizedBox();
+            }
+          }),
         ),
       ),
     );
