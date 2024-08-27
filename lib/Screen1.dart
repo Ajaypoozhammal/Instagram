@@ -5,10 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:instagram/Block/highlight_bloc.dart';
+import 'package:instagram/Block/post_bloc.dart';
 import 'package:instagram/Repository/ModelClass/HighlightModel.dart';
+import 'package:instagram/Repository/ModelClass/PostModel.dart';
+import 'package:instagram/Repository/ModelClass/TagModel.dart';
 
 import 'Block/instagram_bloc.dart';
 
+import 'Block/tag_bloc.dart';
 import 'Repository/ModelClass/InstagramModel.dart';
 
 import 'Screen2.dart';
@@ -24,12 +28,15 @@ class Screen1 extends StatefulWidget {
 class _Screen1State extends State<Screen1> {
   late InstagramModel data;
   late HighlightModel data1;
+  late PostModel data2;
+  late TagModel data3;
 
   @override
   void initState() {
     BlocProvider.of<HighlightBloc>(context).add(FetchHighlight());
     BlocProvider.of<InstagramBloc>(context).add(FetchInstagram());
-
+    BlocProvider.of<PostBloc>(context).add(FetchPost());
+    BlocProvider.of<TagBloc>(context).add(FetchTag());
 
     // TODO: implement initState
     super.initState();
@@ -82,7 +89,7 @@ class _Screen1State extends State<Screen1> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.inter(
                                 color: Colors.black,
-                                fontSize: 14.64.sp,
+                                fontSize: 15.64.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -91,7 +98,7 @@ class _Screen1State extends State<Screen1> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.inter(
                                 color: Colors.black,
-                                fontSize: 12.24.sp,
+                                fontSize: 16.24.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             )
@@ -112,7 +119,7 @@ class _Screen1State extends State<Screen1> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
                                   color: Colors.black,
-                                  fontSize: 14.64.sp,
+                                  fontSize: 15.64.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -121,7 +128,7 @@ class _Screen1State extends State<Screen1> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
                                   color: Colors.black,
-                                  fontSize: 12.24.sp,
+                                  fontSize: 16.24.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
                               )
@@ -143,7 +150,7 @@ class _Screen1State extends State<Screen1> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
                                   color: Colors.black,
-                                  fontSize: 14.64.sp,
+                                  fontSize: 15.64.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -152,7 +159,7 @@ class _Screen1State extends State<Screen1> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
                                   color: Colors.black,
-                                  fontSize: 12.24.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
                               )
@@ -163,27 +170,27 @@ class _Screen1State extends State<Screen1> {
                     ),
                   ),
                   SizedBox(
-                    height: 5.h,
+                    height: 10.h,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 260),
+                    padding: const EdgeInsets.only(right: 280),
                     child: Text(
                       data.data!.fullName.toString(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.inter(
-                        fontSize: 11.64,
+                        fontSize: 12.64,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 230),
+                    padding: const EdgeInsets.only(right: 250),
                     child: Text(
                       'Local business',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.inter(
                         color: Color(0xFF8E8E8E),
-                        fontSize: 10.05.sp,
+                        fontSize: 13.05.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -195,7 +202,7 @@ class _Screen1State extends State<Screen1> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.inter(
                         color: Colors.black,
-                        fontSize: 10.20.sp,
+                        fontSize: 13.20.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -366,71 +373,31 @@ class _Screen1State extends State<Screen1> {
                         ),
                         SizedBox(
                           height: 500,
-                          width: 320,
+                          width: double.infinity,
                           child: TabBarView(
                             children: [
-                              SizedBox(
-                                height: 500.h,
-                                width: 300.w,
-                                child:
-                                    BlocBuilder<InstagramBloc, InstagramState>(
-                                        builder: (context, state) {
-                                  if (state is InstagramBlocLoading)
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  if (state is InstagramBlocError) {
-                                    return Center(
-                                      child: Text("Error"),
-                                    );
-                                  }
-                                  if (state is InstagramBlocLoaded) {
-                                    data =
-                                        BlocProvider.of<InstagramBloc>(context)
-                                            .instagramModel;
-
-                                    return GridView.count(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 5.0,
-                                      mainAxisSpacing: 5.0,
-                                      shrinkWrap: true,
-                                      // children: List.generate(
-                                      //   data.items!.length,
-                                      //       (index) {
-                                      //     return Container(
-                                      //       height: 30.h,
-                                      //       color: Colors.grey,
-                                      //       child: Image.asset("asset/a.png"),
-                                      //     );
-                                      //   },
-                                      // ),
-                                    );
-                                  } else {
-                                    return SizedBox();
-                                  }
-                                }),
-                              ),
                               Container(
-                                color: Colors.red,
+                                width: double.infinity,
+                                color: Colors.white,
                                 child: SizedBox(
                                   height: 500.h,
                                   width: 300.w,
-                                  child: BlocBuilder<InstagramBloc,
-                                      InstagramState>(
+                                  child: BlocBuilder<PostBloc,
+                                      PostState>(
                                     builder: (context, state) {
-                                      if (state is InstagramBlocLoading)
+                                      if (state is PostBlocLoading)
                                         return Center(
                                           child: CircularProgressIndicator(),
                                         );
-                                      if (state is InstagramBlocError) {
+                                      if (state is PostBlocError) {
                                         return Center(
                                           child: Text("Error"),
                                         );
                                       }
-                                      if (state is InstagramBlocLoaded) {
-                                        data = BlocProvider.of<InstagramBloc>(
-                                                context)
-                                            .instagramModel;
+                                      if (state is PostBlocLoaded) {
+                                        data2 = BlocProvider.of<PostBloc>(
+                                            context)
+                                            .postModel;
 
                                         return GridView.count(
                                           crossAxisCount: 2,
@@ -438,13 +405,59 @@ class _Screen1State extends State<Screen1> {
                                           mainAxisSpacing: 5.0,
                                           shrinkWrap: true,
                                           children: List.generate(
-                                            10,
+                                            data2.data!.items!.length,
+                                                (index) {
+                                              return Container(
+                                                  height: 30.h,
+                                                  color: Colors.grey,
+                                                  child:
+                                                  Image.network(data2.data!.items![index].imageVersions!.items![index].url.toString(),fit:BoxFit.cover,)
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        return SizedBox();
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                color: Colors.white,
+                                child: SizedBox(
+                                  height: 500.h,
+                                  width: 300.w,
+                                  child: BlocBuilder<TagBloc,
+                                      TagState>(
+                                    builder: (context, state) {
+                                      if (state is TagBlocLoading)
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      if (state is TagBlocError) {
+                                        return Center(
+                                          child: Text("Error"),
+                                        );
+                                      }
+                                      if (state is TagBlocLoaded) {
+                                        data3 = BlocProvider.of<TagBloc>(
+                                                context)
+                                            .tagModel;
+
+                                        return GridView.count(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 5.0,
+                                          mainAxisSpacing: 5.0,
+                                          shrinkWrap: true,
+                                          children: List.generate(
+                                            data3.data!.items!.length,
                                             (index) {
                                               return Container(
                                                 height: 30.h,
-                                                color: Colors.grey,
+                                                color: Colors.white,
                                                 child:
-                                                    Image.asset("asset/a.png"),
+                                                    Image.network(data3.data!.items![index]!.displayUrl.toString())
                                               );
                                             },
                                           ),

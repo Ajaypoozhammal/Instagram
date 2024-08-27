@@ -16,7 +16,7 @@ class InstagramApi {
 
 
   Future<InstagramModel> getInstagram() async {
-    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/info?username_or_id_or_url=mrbeast';
+    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/info?username_or_id_or_url=_ajay._.p';
     var body = {
 
     };

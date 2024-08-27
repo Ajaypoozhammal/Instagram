@@ -7,6 +7,8 @@ class InstagramModel {
   }
   Data? data;
 
+  get items => null;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (data != null) {

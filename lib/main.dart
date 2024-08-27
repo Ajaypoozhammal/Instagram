@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram/Block/highlight_bloc.dart';
+import 'package:instagram/Block/post_bloc.dart';
+import 'package:instagram/Block/tag_bloc.dart';
 import 'package:instagram/Screen2.dart';
 
 import 'Block/instagram_bloc.dart';
@@ -31,6 +33,12 @@ class MyApp extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (context) => HighlightBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => PostBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => TagBloc(),
                 ),
 
               ],
