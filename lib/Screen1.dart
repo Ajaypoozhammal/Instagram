@@ -4,15 +4,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:instagram/Block/highlight_bloc.dart';
-import 'package:instagram/Block/post_bloc.dart';
+import 'package:instagram/Block/FollowingBloc/following_bloc.dart';
+import 'package:instagram/Block/HighilightBloc/highlight_bloc.dart';
+import 'package:instagram/Block/PostBloc/post_bloc.dart';
+import 'package:instagram/Repository/ModelClass/FollowingModel.dart';
 import 'package:instagram/Repository/ModelClass/HighlightModel.dart';
 import 'package:instagram/Repository/ModelClass/PostModel.dart';
 import 'package:instagram/Repository/ModelClass/TagModel.dart';
 
-import 'Block/instagram_bloc.dart';
+import 'Block/MainBlock/instagram_bloc.dart';
 
-import 'Block/tag_bloc.dart';
+import 'Block/TagBloc/tag_bloc.dart';
 import 'Repository/ModelClass/InstagramModel.dart';
 
 import 'Screen2.dart';
@@ -31,12 +33,16 @@ class _Screen1State extends State<Screen1> {
   late PostModel data2;
   late TagModel data3;
 
+
+
+
   @override
   void initState() {
-    BlocProvider.of<HighlightBloc>(context).add(FetchHighlight());
-    BlocProvider.of<InstagramBloc>(context).add(FetchInstagram());
+
+
     BlocProvider.of<PostBloc>(context).add(FetchPost());
     BlocProvider.of<TagBloc>(context).add(FetchTag());
+
 
     // TODO: implement initState
     super.initState();
@@ -44,7 +50,18 @@ class _Screen1State extends State<Screen1> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    TextEditingController controller=TextEditingController();
+    return Scaffold(appBar: AppBar(title: TextField(onSubmitted: (value){
+      BlocProvider.of<InstagramBloc>(context).add(FetchInstagram(name: controller.text));
+      BlocProvider.of<HighlightBloc>(context).add(FetchHighlight(name: controller.text));
+
+
+    },controller:
+        controller,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(70.r)),
+            prefixIcon: Icon(Icons.search))),),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -64,11 +81,7 @@ class _Screen1State extends State<Screen1> {
 
               return Column(
                 children: [
-                  TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(70.r)),
-                          prefixIcon: Icon(Icons.search))),
+
                   Padding(
                     padding: const EdgeInsets.only(left: 10, top: 20),
                     child: Row(
@@ -110,7 +123,7 @@ class _Screen1State extends State<Screen1> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => Screen2()));
+                                MaterialPageRoute(builder: (_) => Screen2( Name:  data.data!.fullName.toString(), Profilepic:data.data!.profilePicUrlHd.toString())));
                           },
                           child: Column(
                             children: [
@@ -141,7 +154,7 @@ class _Screen1State extends State<Screen1> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => Screen3()));
+                                MaterialPageRoute(builder: (_) => Screen3(name:  data.data!.fullName.toString(), profilepic:data.data!.profilePicUrlHd.toString(),)));
                           },
                           child: Column(
                             children: [

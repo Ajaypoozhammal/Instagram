@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:instagram/Repository/ModelClass/FollowersModel.dart';
+
+import 'Block/FollowersBloc/followers_bloc.dart';
 
 class Screen2 extends StatefulWidget {
-  const Screen2({super.key});
+  final String Name;
+  final String Profilepic;
+
+  const Screen2({super.key, required this.Name, required this.Profilepic});
 
   @override
   State<Screen2> createState() => _Screen2State();
 }
 
 class _Screen2State extends State<Screen2> {
+  late FollowersModel data5;
+
+  @override
+  void initState() {
+    BlocProvider.of<FollowersBloc>(context).add(FetchFollowers(name: widget.Name));
+
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +60,7 @@ class _Screen2State extends State<Screen2> {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: Colors.black,
-                    fontSize: 13.24.sp,
+                    fontSize: 16.24.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -53,70 +70,95 @@ class _Screen2State extends State<Screen2> {
               ),
               SizedBox(
                 height: 700,
-                child: ListView.separated(
-                  itemCount: 20,
-                  itemBuilder: (context, position) {
-                    return Container(
-                      height: 50.h,
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 40.r,
-                            backgroundImage: AssetImage("asset/a.png"),
-                          ),
-                          SizedBox(width: 10.w),
-                          Text(
-                            'Name',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 13.24.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 150.w,
-                          ),
-                          Container(
-                            width: 80.37.w,
-                            height: 33.25.h,
-                            decoration: ShapeDecoration(
-                              color: Colors.grey,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.73),
+                child: BlocBuilder<FollowersBloc, FollowersState>(
+                  builder: (context, state) {
+    if (state is FollowersBlocLoading){
+    print("loading");
+    return Center(
+    child: CircularProgressIndicator(),
+    );}
+    if (state is FollowersBlocError) {
+    print("error");
+    return Center(
+    child: Text("Error"),
+    );
+    }
+    if (state is FollowersBlocLoaded) {
+    print("loaded");
+    data5 = BlocProvider.of<FollowersBloc>(context)
+        .followersModel;
+                    return ListView.separated(
+                      itemCount: data5.data!.items!.length,
+                      itemBuilder: (context, position) {
+                        return Container(
+                          height: 50.h,
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 40.r,
+                                backgroundImage: NetworkImage(data5.data!.items![position].profilePicUrl.toString())
                               ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Remove',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 10.05,
-                                  fontWeight: FontWeight.w500,
-                                  height: 0,
+
+                              SizedBox(width: 50.w,
+                                child: Text(data5.data!.items![position].fullName.toString(),
+
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.inter(
+                                    color: Colors.black,
+                                    fontSize: 13.24.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(
+                                width: 150.w,
+                              ),
+                              Container(
+                                width: 80.37.w,
+                                height: 33.25.h,
+                                decoration: ShapeDecoration(
+                                  color: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.73),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Remove',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.inter(
+                                      color: Colors.white,
+                                      fontSize: 10.05,
+                                      fontWeight: FontWeight.w500,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              Icon(
+                                Icons.more_vert_rounded,
+                                color: Colors.black,
+                                size: 30,
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          Icon(
-                            Icons.more_vert_rounded,
-                            color: Colors.black,
-                            size: 30,
-                          )
-                        ],
-                      ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          height: 10.h,
+                        );
+                      },
                     );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 10.h,
-                    );
-                  },
+                  }
+                    else {
+                    return SizedBox();
+                    }
+                  }
                 ),
               ),
             ],

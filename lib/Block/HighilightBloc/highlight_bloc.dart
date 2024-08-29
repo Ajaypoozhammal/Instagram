@@ -11,10 +11,10 @@ class HighlightBloc extends Bloc<HighlightEvent, HighlightState> {
   Highlightapi highlightapi=Highlightapi();
   HighlightBloc() : super(HighlightInitial()) {
 
-    on<HighlightEvent>((event, emit)async {
+    on<FetchHighlight>((event, emit)async {
       emit(HighlightBlocLoading());
       try{
-        highlightModel= await highlightapi.getInstagram();
+        highlightModel= await highlightapi.getInstagram(event.name);
         emit(HighlightBlocLoaded());
       }
       catch(e){

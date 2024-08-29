@@ -15,7 +15,7 @@ class InstagramBloc extends Bloc<InstagramEvent, InstagramState> {
 
       emit(InstagramBlocLoading());
       try{
-      instagramModel= await instagramApi.getInstagram();
+      instagramModel= await instagramApi.getInstagram(event.name);
       emit(InstagramBlocLoaded());
       }
       catch(e){

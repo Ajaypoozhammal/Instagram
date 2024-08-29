@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:instagram/Block/FollowingBloc/following_bloc.dart';
+import 'package:instagram/Repository/ModelClass/FollowingModel.dart';
 
 import 'Screen1.dart';
 
 class Screen3 extends StatefulWidget {
-  const Screen3({super.key});
+  final String name;
+  final String profilepic;
+
+  const Screen3({super.key, required this.name, required this.profilepic});
 
   @override
   State<Screen3> createState() => _Screen3State();
 }
 
 class _Screen3State extends State<Screen3> {
+  late FollowingModel data4;
   @override
+  void initState() {
+    BlocProvider.of<FollowingBloc>(context).add(FetchFollowing());
+
+
+
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -39,9 +56,27 @@ class _Screen3State extends State<Screen3> {
               SizedBox(height: 30.h,),
               SizedBox(
                 height: 700,
-                child: ListView.separated(
-                  itemCount: 20,
+                child: BlocBuilder<FollowingBloc, FollowingState>(
+  builder: (context, state) {
+    if (state is FollowingBlocLoading){
+    print("loading");
+    return Center(
+    child: CircularProgressIndicator(),
+    );}
+    if (state is FollowingBlocError) {
+    print("error");
+    return Center(
+    child: Text("Error"),
+    );
+    }
+    if (state is FollowingBlocLoaded) {
+    print("loaded");
+    data4 = BlocProvider.of<FollowingBloc>(context)
+        .followingModel;
+    return ListView.separated(
+                  itemCount: data4.data!.items!.length,
                   itemBuilder: (context, position) {
+
                     return Container(
                       height: 50.h,
                       color: Colors.white,
@@ -49,19 +84,21 @@ class _Screen3State extends State<Screen3> {
                         children: [
                           CircleAvatar(
                             radius: 40.r,
-                            backgroundImage: AssetImage("asset/a.png"),
-                          ),SizedBox(width: 10.w),
-                          Text(
-                            'Name',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 13.24.sp,
-                              fontWeight: FontWeight.w400,
+                            backgroundImage:NetworkImage(data4.data!.items![position].profilePicUrl.toString()),
+                          ),
+                          SizedBox(width: 150,
+                            child: Text(
+                              data4.data!.items![position].fullName.toString(),
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 13.24.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),SizedBox(width: 150.w,),
+                          ),
                           Container(
-                            width: 90.37.w,
+                            width: 80.37.w,
                             height: 33.25.h,
                             decoration: ShapeDecoration(
                               color: Colors.grey,
@@ -87,7 +124,14 @@ class _Screen3State extends State<Screen3> {
                       ),
                     );
                   }, separatorBuilder: (BuildContext context, int index) { return SizedBox(height: 10,); },
-                ),
+                );
+
+  }
+    else {
+    return SizedBox();
+    }
+  }
+),
               ),
             ],
           ),

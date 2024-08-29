@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instagram/Block/highlight_bloc.dart';
-import 'package:instagram/Block/post_bloc.dart';
-import 'package:instagram/Block/tag_bloc.dart';
+import 'package:instagram/Block/FollowersBloc/followers_bloc.dart';
+import 'package:instagram/Block/FollowingBloc/following_bloc.dart';
+import 'package:instagram/Block/HighilightBloc/highlight_bloc.dart';
+import 'package:instagram/Block/PostBloc/post_bloc.dart';
+import 'package:instagram/Block/TagBloc/tag_bloc.dart';
 import 'package:instagram/Screen2.dart';
 
-import 'Block/instagram_bloc.dart';
+import 'Block/MainBlock/instagram_bloc.dart';
 import 'Screen1.dart';
 
 void main() {
@@ -40,7 +42,12 @@ class MyApp extends StatelessWidget {
                 BlocProvider(
                   create: (context) => TagBloc(),
                 ),
-
+                BlocProvider(
+                  create: (context) => FollowingBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => FollowersBloc(),
+                ),
               ],
               child: MaterialApp(
                   title: 'Flutter Demo', debugShowCheckedModeBanner: false,
