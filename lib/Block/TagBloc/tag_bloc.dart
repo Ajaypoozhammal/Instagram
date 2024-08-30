@@ -10,10 +10,10 @@ class TagBloc extends Bloc<TagEvent, TagState> {
   late TagModel tagModel;
   TagApi tagapi=TagApi();
   TagBloc() : super(TagInitial()) {
-    on<TagEvent>((event, emit)async{
+    on<FetchTag>((event, emit)async{
       emit(TagBlocLoading());
       try{
-        tagModel= await tagapi.getTag();
+        tagModel= await tagapi.getTag(event.name);
         emit(TagBlocLoaded());
       }
       catch(e){

@@ -14,8 +14,8 @@ class Followingapi {
   ApiClient apiClient = ApiClient();
 
 
-  Future<FollowingModel> getFollowing() async {
-    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/following?username_or_id_or_url=_ajay._.p';
+  Future<FollowingModel> getFollowing(String name) async {
+    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/following?username_or_id_or_url=$name';
     var body = {
 
     };

@@ -14,8 +14,8 @@ class Postapi {
   ApiClient apiClient = ApiClient();
 
 
-  Future<PostModel> getInstagram() async {
-    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1.2/posts?username_or_id_or_url=_ajay._.p';
+  Future<PostModel> getInstagram(String name) async {
+    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1.2/posts?username_or_id_or_url=$name';
     var body = {
 
     };

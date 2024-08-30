@@ -10,10 +10,10 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   late PostModel postModel;
   Postapi postapi=Postapi();
   PostBloc() : super(PostInitial()) {
-    on<PostEvent>((event, emit) async{
+    on<FetchPost>((event, emit) async{
       emit(PostBlocLoading());
       try{
-        postModel= await postapi.getInstagram();
+        postModel= await postapi.getInstagram(event.name);
         emit(PostBlocLoaded());
       }
       catch(e){

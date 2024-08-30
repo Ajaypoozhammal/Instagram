@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:instagram/Repository/ModelClass/FollowersModel.dart';
 
 import 'Block/FollowersBloc/followers_bloc.dart';
+import 'UI/Screen4.dart';
 
 class Screen2 extends StatefulWidget {
   final String Name;
@@ -29,6 +30,7 @@ class _Screen2State extends State<Screen2> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -80,6 +82,7 @@ class _Screen2State extends State<Screen2> {
     if (state is FollowersBlocError) {
     print("error");
     return Center(
+
     child: Text("Error"),
     );
     }
@@ -90,61 +93,63 @@ class _Screen2State extends State<Screen2> {
                     return ListView.separated(
                       itemCount: data5.data!.items!.length,
                       itemBuilder: (context, position) {
-                        return Container(
-                          height: 50.h,
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 40.r,
-                                backgroundImage: NetworkImage(data5.data!.items![position].profilePicUrl.toString())
-                              ),
-
-                              SizedBox(width: 50.w,
-                                child: Text(data5.data!.items![position].fullName.toString(),
-
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.inter(
-                                    color: Colors.black,
-                                    fontSize: 13.24.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                        return GestureDetector(onTap:(){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Screen4(Name: data5.data!.items![position].username.toString())));} ,
+                          child: Container(
+                            height: 50.h,
+                            color: Colors.white,
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 40.r,
+                                  backgroundImage: NetworkImage(data5.data!.items![position].profilePicUrl.toString())
                                 ),
-                              ),
-                              SizedBox(
-                                width: 150.w,
-                              ),
-                              Container(
-                                width: 80.37.w,
-                                height: 33.25.h,
-                                decoration: ShapeDecoration(
-                                  color: Colors.grey,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.73),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Remove',
+
+                                SizedBox(width: 50.w,
+                                  child: Text(data5.data!.items![position].fullName.toString(),
+
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.inter(
-                                      color: Colors.white,
-                                      fontSize: 10.05,
-                                      fontWeight: FontWeight.w500,
-                                      height: 0,
+                                      color: Colors.black,
+                                      fontSize: 13.24.sp,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Icon(
-                                Icons.more_vert_rounded,
-                                color: Colors.black,
-                                size: 30,
-                              )
-                            ],
+                                SizedBox(
+                                  width: 150.w,
+                                ),
+                                Container(
+                                  width: 80.37.w,
+                                  height: 33.25.h,
+                                  decoration: ShapeDecoration(
+                                    color: Colors.grey,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.73),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Remove',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontSize: 10.05,
+                                        fontWeight: FontWeight.w500,
+                                        height: 0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                Icon(
+                                  Icons.more_vert_rounded,
+                                  color: Colors.black,
+                                  size: 30,
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },

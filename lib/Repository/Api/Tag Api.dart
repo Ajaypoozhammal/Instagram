@@ -15,8 +15,8 @@ class TagApi {
   ApiClient apiClient = ApiClient();
 
 
-  Future<TagModel> getTag() async {
-    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/tagged?username_or_id_or_url=_ajay._.p';
+  Future<TagModel> getTag(String name) async {
+    String trendingpath = 'https://instagram-scraper-api2.p.rapidapi.com/v1/tagged?username_or_id_or_url=$name';
     var body = {
 
     };

@@ -11,10 +11,10 @@ class FollowingBloc extends Bloc<FollowingEvent, FollowingState> {
   late FollowingModel followingModel;
   Followingapi foloowingapi= Followingapi();
   FollowingBloc() : super(FollowingInitial()) {
-    on<FollowingEvent>((event, emit) async {
+    on<FetchFollowing>((event, emit) async {
       emit(FollowingBlocLoading());
       try{
-        followingModel= await foloowingapi.getFollowing();
+        followingModel= await foloowingapi.getFollowing(event.name);
         emit(FollowingBlocLoaded());
       }
       catch(e){

@@ -36,17 +36,7 @@ class _Screen1State extends State<Screen1> {
 
 
 
-  @override
-  void initState() {
 
-
-    BlocProvider.of<PostBloc>(context).add(FetchPost());
-    BlocProvider.of<TagBloc>(context).add(FetchTag());
-
-
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +44,10 @@ class _Screen1State extends State<Screen1> {
     return Scaffold(appBar: AppBar(title: TextField(onSubmitted: (value){
       BlocProvider.of<InstagramBloc>(context).add(FetchInstagram(name: controller.text));
       BlocProvider.of<HighlightBloc>(context).add(FetchHighlight(name: controller.text));
+      BlocProvider.of<PostBloc>(context).add(FetchPost(name: controller.text));
+      BlocProvider.of<TagBloc>(context).add(FetchTag(name: controller.text));
+
+
 
 
     },controller:
@@ -123,7 +117,7 @@ class _Screen1State extends State<Screen1> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => Screen2( Name:  data.data!.fullName.toString(), Profilepic:data.data!.profilePicUrlHd.toString())));
+                                MaterialPageRoute(builder: (_) => Screen2( Name:  data.data!.username.toString(), Profilepic:data.data!.profilePicUrlHd.toString())));
                           },
                           child: Column(
                             children: [
@@ -154,7 +148,7 @@ class _Screen1State extends State<Screen1> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => Screen3(name:  data.data!.fullName.toString(), profilepic:data.data!.profilePicUrlHd.toString(),)));
+                                MaterialPageRoute(builder: (_) => Screen3(name:  data.data!.username.toString(), profilepic:data.data!.profilePicUrlHd.toString(),)));
                           },
                           child: Column(
                             children: [
@@ -424,7 +418,7 @@ class _Screen1State extends State<Screen1> {
                                                   height: 30.h,
                                                   color: Colors.grey,
                                                   child:
-                                                  Image.network(data2.data!.items![index].imageVersions!.items![index].url.toString(),fit:BoxFit.cover,)
+                                                  Image.network(data2.data!.items![index].imageVersions!.items![0].url.toString(),fit:BoxFit.cover,)
                                               );
                                             },
                                           ),
